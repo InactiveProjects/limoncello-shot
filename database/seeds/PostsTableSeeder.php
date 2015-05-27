@@ -1,8 +1,8 @@
 <?php
 
-use \App\Models\Post;
-use \App\Models\Site;
-use \App\Models\Author;
+use \App\Models\PDO\Post;
+use \App\Models\PDO\Site;
+use \App\Models\PDO\Author;
 use \Illuminate\Database\Seeder;
 
 /**
