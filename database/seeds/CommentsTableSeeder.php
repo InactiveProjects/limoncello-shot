@@ -1,7 +1,7 @@
 <?php
 
-use \App\Models\Post;
-use \App\Models\Comment;
+use \App\Models\PDO\Post;
+use \App\Models\PDO\Comment;
 use \Illuminate\Database\Seeder;
 
 /**

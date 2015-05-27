@@ -1,6 +1,6 @@
 <?php
 
-use \App\Models\Author;
+use \App\Models\PDO\Author;
 use \Illuminate\Database\Schema\Blueprint;
 use \Illuminate\Database\Migrations\Migration;
 
