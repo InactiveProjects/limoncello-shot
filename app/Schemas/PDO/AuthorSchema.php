@@ -43,7 +43,7 @@ class AuthorSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    public function getLinks($author)
+    public function getRelationships($author)
     {
         /** @var Author $author */
         return [

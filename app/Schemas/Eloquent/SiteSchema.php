@@ -3,6 +3,9 @@
 use \App\Models\Eloquent\Site;
 use \Neomerx\JsonApi\Schema\SchemaProvider;
 
+/**
+ * Site schema.
+ */
 class SiteSchema extends SchemaProvider
 {
     /**
@@ -38,7 +41,7 @@ class SiteSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    public function getLinks($site)
+    public function getRelationships($site)
     {
         /** @var Site $site */
         return [

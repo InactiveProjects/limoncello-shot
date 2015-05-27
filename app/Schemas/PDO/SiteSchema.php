@@ -47,7 +47,7 @@ class SiteSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    public function getLinks($site)
+    public function getRelationships($site)
     {
         /** @var Site $site */
         return [

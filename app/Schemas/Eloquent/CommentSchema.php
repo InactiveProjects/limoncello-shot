@@ -3,6 +3,9 @@
 use \App\Models\Eloquent\Comment;
 use \Neomerx\JsonApi\Schema\SchemaProvider;
 
+/**
+ * Comment schema.
+ */
 class CommentSchema extends SchemaProvider
 {
     /**
@@ -38,7 +41,7 @@ class CommentSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    public function getLinks($comment)
+    public function getRelationships($comment)
     {
         /** @var Comment $comment */
         return [
