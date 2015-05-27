@@ -3,6 +3,9 @@
 use \App\Models\Eloquent\Post;
 use \Neomerx\JsonApi\Schema\SchemaProvider;
 
+/**
+ * Post schema.
+ */
 class PostSchema extends SchemaProvider
 {
     /**
@@ -39,7 +42,7 @@ class PostSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    public function getLinks($post)
+    public function getRelationships($post)
     {
         /** @var Post $post */
         return [

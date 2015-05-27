@@ -3,6 +3,9 @@
 use \App\Models\Eloquent\Author;
 use \Neomerx\JsonApi\Schema\SchemaProvider;
 
+/**
+ * Author schema.
+ */
 class AuthorSchema extends SchemaProvider
 {
     /**
@@ -49,7 +52,7 @@ class AuthorSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    public function getLinks($author)
+    public function getRelationships($author)
     {
         /** @var Author $author */
         return [
