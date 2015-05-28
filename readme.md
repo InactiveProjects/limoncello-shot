@@ -102,15 +102,23 @@ In case of sqlite usage you need to create an empty database file
 $ touch storage/database.sqlite
 ```
 
+You should copy ```.env.example``` file to ```.env``` and set **full path** to ```database.sqlite``` in it
+
+```$ cp .env.example .env ```
+
+.env example
+
+```
+...
+DB_DATABASE='/home/neomerx/limoncello-shot/storage/database.sqlite'
+...
+```
+
 Migrate and seed data
 
 ```
 $ php artisan migrate --force && php artisan db:seed --force
 ```
-
-You should copy ```.env.example``` file to ```.env``` and set **full path** to ```database.sqlite``` in it
-
-```$ cp .env.example .env ```
 
 #### Run HTTP server
 
@@ -140,80 +148,23 @@ Routes are added the same way as in Lumen. It's recommended to read [CRUD sectio
 
 Your Controller should extend/inherit Controller with JSON API supported functions added. In ```app/Http/Controllers/Controller.php``` you can see it take only a few lines of code to add such support to any controller.
 
-#### Input decoding and validation
+The Controller can now
 
-The specification defines input document format and parameters that could be sent to API.
+- Parse and validate Request parameters and headers.
+- Match decoders for input data based on the data type defined in ```Content-Type``` header and encoders based on the ```Accept``` header.
+- Compose JSON API Responses
 
-You can read input document with standard methods or use helper method ```$this->getDocument()```. Various decoders might be configured for input data types. Default decoder simply returns input as an array.
- 
-Method ```$this->getParameters()``` is used to parse input parameters (e.g. sparse fields, include, sort, paging and filters). It does not only parsing but validation as well. Valid parameter values might be configured and will be checked automatically. You configure them by adding the following properties to Controller class
-
-| Property with default value                     | Description                                                                                                                                                                                             |
-|-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|```protected $allowedIncludePaths = [];```       | A list of allowed include paths in input parameters. Empty array ```[]``` means clients are not allowed to specify include paths and ```null``` means all paths are allowed.                           |
-|```protected $allowedFieldSetTypes = null;```    | A list of JSON API types which clients can sent field sets to. Empty array ```[]``` means clients are not allowed to specify field sets for all types and ```null``` means any field sets are allowed. |
-|```protected $allowedSortFields = [];```         | A list of allowed sort field names in input parameters. Empty array ```[]``` means clients are not allowed to specify sort fields and ```null``` means all fields are allowed.                         |
-|```protected $allowedFilteringParameters = [];```| A list of allowed filtering input parameters. Empty array ```[]``` means clients are not allowed to specify filtering and ```null``` means all parameters are allowed.                                 |
-|```protected $allowUnrecognizedParams = false;```| If unrecognized parameters should be allowed in input parameters.                                                                                                                                      |
-
-#### Responses
-
-The specification requires responses to have certain headers and data to be formatted. The following helper methods could be used for it
-
-|Method                                                                                                                               |Description                                                                                                               |
-|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-|```$this->getCodeResponse(int $statusCode)```                                                                                        | Get Response with HTTP code and empty body.                                                                              |
-|```$this->getResponse(mixed $data, int $statusCode = Response::HTTP_OK, DocumentLinksInterface $links = null, mixed $meta = null)``` | Get Response with data (model or collection) encoded in JSON API format.                                                 |
-|```$this->getCreatedResponse(object $resource, DocumentLinksInterface $links = null, mixed $meta = null)```                          | Get Response for HTTP code 201 (Created). The specification requires special header to be added and this method does it. |
-
+**To find out more, please check out the [Wiki](https://github.com/neomerx/limoncello/wiki)**
 
 #### Model schema
 
-Model schema tells encoder how to convert object/model to JSON API format. It defines what fields (attributes and links) should be converted and how. How links and urls should be shown and what object should be placed to ```included``` section. Fore more information see [neomerx/json-api](https://github.com/neomerx/json-api).
+Model schema tells encoder how to convert object/model to JSON API format. It defines what fields (attributes and relationships) should be converted and how. How relationships and urls should be shown and what objects should be placed to ```included``` section. Fore more information see [neomerx/json-api](https://github.com/neomerx/json-api).
 
-Schemas are placed in ```app/Schemas``` folder. When a new schema is added a mapping between model and its schema should be added to ```config/limoncello.php``` configuration file. An example of Schema might look like
-
-```php
-
-class SiteSchema extends SchemaProvider
-{
-    protected $resourceType = 'sites';
-    protected $baseSelfUrl  = '/sites';
-
-    public function getId($site)
-    {
-        return $site->id;
-    }
-
-    public function getAttributes($site)
-    {
-        return [
-            'name' => $site->name,
-        ];
-    }
-
-    public function getLinks($site)
-    {
-        return [
-            'posts' => [self::DATA => $site->posts->all()],
-        ];
-    }
-
-    public function getIncludePaths()
-    {
-        return [
-            'posts',
-            'posts.author',
-            'posts.comments',
-        ];
-    }
-}
-```
+Schemas are placed in ```app/Schemas``` folder. When a new schema is added a mapping between model and its schema should be added to ```config/limoncello.php``` configuration file.
 
 ### Error handling
 
 If an exception is thrown during the process of handling HTTP request it will be converted to HTTP response with certain status code. The application already has support for a few common exceptions and you can add more. Exceptions could be converted to both HTTP code only responses and response containing JSON API Error objects. Please see ```app/Exceptions/Handler.php``` for examples of both.
-
 
 ## Questions?
 
