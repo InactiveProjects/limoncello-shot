@@ -107,6 +107,9 @@ class ModelsAndSeedsTest extends BaseTestCase
         // re-read and check
         $author = Author::existingInstance($author->getId());
         $this->assertEquals('new name', $author->getFirstName());
+
+        // delete
+        $author->delete();
     }
 
     /**

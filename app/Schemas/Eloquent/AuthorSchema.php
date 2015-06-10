@@ -16,7 +16,7 @@ class AuthorSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    protected $baseSelfUrl = '/authors';
+    protected $selfSubUrl = '/authors/';
 
     /**
      * @inheritdoc

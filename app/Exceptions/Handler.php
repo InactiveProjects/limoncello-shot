@@ -6,7 +6,7 @@ use \Illuminate\Http\Response;
 use \App\Services\LumenIntegration;
 use \Neomerx\JsonApi\Document\Error;
 use \Neomerx\Limoncello\Config\Config as C;
-use \Neomerx\JsonApi\Encoder\JsonEncodeOptions;
+use \Neomerx\JsonApi\Encoder\EncoderOptions;
 use \Neomerx\Limoncello\Errors\RenderContainer;
 use \Neomerx\JsonApi\Parameters\ParametersFactory;
 use \Neomerx\Limoncello\Contracts\IntegrationInterface;
@@ -125,7 +125,7 @@ class Handler extends ExceptionHandler
 
             // Load JSON formatting options from config
             $opts = array_get($this->integration->getConfig(), C::JSON.'.'. C::JSON_OPTIONS, C::JSON_OPTIONS_DEFAULT);
-            $encodeOptions = new JsonEncodeOptions($opts);
+            $encodeOptions = new EncoderOptions($opts);
 
             // Convert error (note it accepts array of errors) to HTTP response
             return $jsonApiErrorRender([$error], $encodeOptions);
