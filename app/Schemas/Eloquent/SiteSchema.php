@@ -16,7 +16,7 @@ class SiteSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    protected $baseSelfUrl = '/sites';
+    protected $selfSubUrl = '/sites/';
 
     /**
      * @inheritdoc

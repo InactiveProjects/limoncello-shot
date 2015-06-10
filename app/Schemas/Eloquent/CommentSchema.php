@@ -16,7 +16,7 @@ class CommentSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    protected $baseSelfUrl = '/comments/';
+    protected $selfSubUrl = '/comments/';
 
     /**
      * @inheritdoc
