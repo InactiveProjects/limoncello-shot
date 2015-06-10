@@ -230,7 +230,7 @@ abstract class Model
 
         $pdo = self::getPdo();
         try {
-            $result = $pdo->query($statement)->execute([$idx]);
+            $result = $pdo->prepare($statement)->execute([$idx]);
         } finally {
             $pdo = null;
         }
@@ -386,8 +386,11 @@ abstract class Model
      */
     private static function getPdo()
     {
-        $filePath = env('DB_DATABASE');
-        $pdo      = new PDO('sqlite:' . $filePath);
+        $connectString = env('PDO_DB_CONNECTION');
+        $userName      = env('DB_USERNAME');
+        $password      = env('DB_PASSWORD');
+
+        $pdo           = new PDO($connectString, $userName, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;

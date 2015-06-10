@@ -16,7 +16,7 @@ class PostSchema extends SchemaProvider
     /**
      * @inheritdoc
      */
-    protected $baseSelfUrl = '/posts';
+    protected $selfSubUrl = '/posts/';
 
     /**
      * @inheritdoc
