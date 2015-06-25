@@ -1,11 +1,8 @@
 <?php
 
-use \Illuminate\Database\Seeder;
-use \Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * @package Neomerx\Tests\JsonApi
- */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthorsTableSeeder::class);
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
+
+        Model::reguard();
     }
 }
