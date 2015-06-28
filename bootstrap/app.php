@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-Dotenv::load(__DIR__.'/../');
+// Dotenv::load(__DIR__.'/../');
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +17,9 @@ Dotenv::load(__DIR__.'/../');
 
 $app = new Laravel\Lumen\Application(realpath(__DIR__.'/../'));
 
-//if (php_sapi_name() === 'cli') {
-    $app->withFacades();
-    $app->withEloquent();
-//}
+// $app->withFacades();
+
+// $app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
