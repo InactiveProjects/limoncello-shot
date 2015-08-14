@@ -1,2 +1,5 @@
 /vendor
 .env
+composer.lock
+.idea/
+storage/database.sqlite
