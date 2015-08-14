@@ -1,2 +1,5 @@
 /vendor
+.idea/
 .env
+.env.example
+composer.lock
