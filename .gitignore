@@ -1,5 +1,8 @@
 /vendor
 /storage/logs
 /storage/framework/cache
+.idea/
 .env
 .env.example
+composer.lock
+storage/database.sqlite
