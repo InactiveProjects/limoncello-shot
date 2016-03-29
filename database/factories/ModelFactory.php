@@ -11,9 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-    ];
-});
+
+/** @var Illuminate\Database\Eloquent\Factory $factory */
+
+(new \Neomerx\LimoncelloIlluminate\Database\Factories\Runner($factory))->run();

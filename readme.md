@@ -1,21 +1,48 @@
-# Lumen PHP Framework
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## Quick start JSON API application
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Limoncello Shot is a [JSON API](http://jsonapi.org/) quick start application.
+ 
+Technically it is a default [Lumen 5.2](https://github.com/laravel/lumen) application integrated with
+- [JSON API implementation](https://github.com/neomerx/json-api)
+- Bearer (token-based) Authentication
+- Cross-Origin Resource Sharing [CORS for Laravel/Lumen](https://github.com/neomerx/cors-illuminate)
 
-## Official Documentation
+It could be a great start if you are planning to develop API with Lumen.
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+The application includes
+- CRUD operations for a few sample resources with input data validation and [events](https://lumen.laravel.com/docs/5.2/events).
+- Authentication and authorization support integrated with [policies](https://lumen.laravel.com/docs/5.2/authorization).
+- Support for such JSON API [features](http://jsonapi.org/format/#fetching) as resource inclusion, sparse field sets, sorting, filtering and pagination.
+- JSON API errors.
+- API tests.
 
-## Security Vulnerabilities
+### Installation
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Install [docker-compose](https://docs.docker.com/compose/)
 
-## License
+Clone the project
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Start local server at [http://localhost:8080](http://localhost:8080) and log server [http://localhost:8090](http://localhost:8080) with
+
+```
+$ composer install && composer docker-up
+```
+
+> Note: use `$ composer docker-down` to stop the servers.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/064046759f3d14d4def7#?env%5Blimoncello%5D=W3sia2V5Ijoic2VydmVyIiwidmFsdWUiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJ0eXBlIjoidGV4dCIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoidG9rZW4iLCJ0eXBlIjoidGV4dCIsInZhbHVlIjoie1wiaWRfdXNlclwiOjEsXCJzZWNyZXRcIjpcIk1KaXpFVnJQUk96Qk83OXZcIn0iLCJlbmFibGVkIjp0cnVlfV0=)
+
+![Requests in Postman](img/logs-and-postman.png)
+
+### Questions?
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/neomerx/json-api)
+
+### License
+
+This project is a fork from upstream [laravel/lumen](https://github.com/laravel/lumen). All changes to the upstream are licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+### Versioning
+
+This project is synchronized with upstream `master` branch and uses similar versioning approach.

@@ -23,9 +23,22 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+if (env('APP_USE_LOG_SERVER', false) === true) {
+    $app->configureMonologUsing(function (\Monolog\Logger $monolog) {
+        $logServer = env('APP_LOG_SERVER', 'logs');
+        $publisher = new \Gelf\Publisher(new \Gelf\Transport\UdpTransport($logServer));
+        $handler   = new \Monolog\Handler\GelfHandler($publisher);
+        $handler->pushProcessor(new \Monolog\Processor\WebProcessor());
+        $handler->pushProcessor(new \Monolog\Processor\UidProcessor());
+        $monolog->pushHandler($handler);
 
-// $app->withEloquent();
+        return $monolog;
+    });
+}
+
+$app->withFacades();
+
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -59,14 +72,13 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    \Neomerx\CorsIlluminate\CorsMiddleware::class,
+]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
-
+$app->routeMiddleware([
+    'auth' => \Neomerx\Limoncello\Http\AuthMiddleware::class,
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -78,9 +90,12 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+//$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
+
+$app->register(\Neomerx\Limoncello\Providers\LumenServiceProvider::class);
+$app->register(\Neomerx\CorsIlluminate\Providers\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -93,8 +108,6 @@ $app->singleton(
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__.'/../app/Http/routes.php';
-});
+require __DIR__ . '/../app/Http/routes.php';
 
 return $app;

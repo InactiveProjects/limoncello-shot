@@ -1,14 +1,17 @@
-<?php
+<?php namespace App\Tests;
 
-class TestCase extends Laravel\Lumen\Testing\TestCase
+use Laravel\Lumen\Testing\TestCase as BaseTestCase;
+
+/**
+ * @package App\Tests
+ */
+class TestCase extends BaseTestCase
 {
     /**
-     * Creates the application.
-     *
-     * @return \Laravel\Lumen\Application
+     * @inheritdoc
      */
     public function createApplication()
     {
-        return require __DIR__.'/../bootstrap/app.php';
+        return require __DIR__ . '/../bootstrap/app.php';
     }
 }

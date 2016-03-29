@@ -1,7 +1,10 @@
-<?php
+<?php namespace App\Tests;
 
-use Laravel\Lumen\Testing\DatabaseTransactions;
+//use Laravel\Lumen\Testing\DatabaseTransactions;
 
+/**
+ * @package App\Tests
+ */
 class ExampleTest extends TestCase
 {
     /**
@@ -13,8 +16,9 @@ class ExampleTest extends TestCase
     {
         $this->get('/');
 
-        $this->assertEquals(
-            $this->app->version(), $this->response->getContent()
-        );
+//        $this->assertEquals(
+//            $this->app->version(), $this->response->getContent()
+//        );
+        $this->assertEquals('JSON API Neomerx Demo Application', $this->response->getContent());
     }
 }

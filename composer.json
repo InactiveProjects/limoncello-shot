@@ -7,6 +7,9 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/lumen-framework": "5.2.*",
+        "neomerx/limoncello": "dev-develop",
+        "neomerx/limoncello-illuminate": "dev-master",
+        "graylog2/gelf-php": "^1.4",
         "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {
@@ -20,8 +23,26 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/",
             "database/"
-        ]
+        ],
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "reset-db": "php artisan migrate:reset && php artisan migrate && php artisan db:seed",
+        "local-up": ["docker-compose -f docker-compose-local.yml up -d", "echo waiting 10s && sleep 10s", "@reset-db"],
+        "local-down": "docker-compose -f docker-compose-local.yml down",
+        "test": ["@reset-db", "@test-unit", "@test-cs", "@test-md"],
+        "test-unit": "./vendor/bin/phpunit --coverage-text",
+        "test-cs": "./vendor/bin/phpcs -p -s --standard=PSR2 ./app ./tests",
+        "test-md": "./vendor/bin/phpmd ./app text codesize,controversial,cleancode,design,unusedcode,naming",
+        "test-light": ["@reset-db", "@test-unit-light"],
+        "test-unit-light": "./vendor/bin/phpunit",
+        "docker-reset-db": "docker-compose run --rm fpm php artisan migrate:reset && docker-compose run --rm fpm php artisan migrate && docker-compose run --rm fpm php artisan db:seed",
+        "docker-up": ["docker-compose up -d", "echo waiting 10s && sleep 10s", "@docker-reset-db"],
+        "docker-down": "docker-compose down",
+        "ab-home": "ab -c 10 -t 5 -H 'Accept: application/vnd.api+json' -H 'Content-Type: application/vnd.api+json' http://localhost:8080/",
+        "ab-api": "ab -c 10 -t 5 -H 'Accept: application/vnd.api+json' -H 'Content-Type: application/vnd.api+json' http://localhost:8080/api/v1/comments"
     }
 }
