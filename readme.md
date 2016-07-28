@@ -1,3 +1,5 @@
+# The project is not actively developed. For new projects please start from https://github.com/neomerx/limoncello-flute
+
 
 ## Quick start JSON API application
 
